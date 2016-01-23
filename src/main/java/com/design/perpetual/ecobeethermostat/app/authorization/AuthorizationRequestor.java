@@ -7,47 +7,38 @@ package com.design.perpetual.ecobeethermostat.app.authorization;
 
 import com.design.perpetual.ecobeethermostat.app.exceptions.EmptyAppKeyException;
 import com.design.perpetual.ecobeethermostat.app.exceptions.NullAppKeyException;
-import java.util.Objects;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Objects;
+import java.util.Optional;
+
 /**
- *
  * @author MacDerson
  */
 public class AuthorizationRequestor {
 
-    private static final String BASE_URL = "https://api.ecobee.com/authorize?response_type=ecobeePin&client_id=";
+  private static final String URL = "https://api.ecobee.com/authorize?response_type=ecobeePin&client_id=%s&scope=smartWrite";
 
-    private String appKey;
+  private AppKey appKey;
 
-    public AuthorizationRequestor() {
+  public AuthorizationRequestor(AppKey appKey) {
+    this.appKey = appKey;
+    validateAppKey();
+  }
+
+  public Optional<PinAuthorization> getAuthorization() {
+    if(appKey.isValidKey()) {
+      RestTemplate template = new RestTemplate();
+
+      String url = String.format(URL, appKey.getKey());
+      return Optional.ofNullable(template.getForObject(url, PinAuthorization.class));
     }
+    return Optional.empty();
+  }
 
-    public AuthorizationRequestor(String appKey) throws NullAppKeyException,
-	EmptyAppKeyException {
-	this.appKey = appKey;
-	validateAppKey();
+  private void validateAppKey() {
+    if (Objects.isNull(appKey)) {
+      throw new NullAppKeyException();
     }
-
-    public void setAppKey(String appKey) throws NullAppKeyException,
-	EmptyAppKeyException {
-	this.appKey = appKey;
-	validateAppKey();
-    }
-
-    public PinAuthorization getAuthorization() {
-	RestTemplate template = new RestTemplate();
-
-	String url = BASE_URL + appKey + "&scope=smartWrite";
-	return template.getForObject(url, PinAuthorization.class);
-    }
-
-    private void validateAppKey() throws NullAppKeyException,
-	EmptyAppKeyException {
-	if (Objects.isNull(appKey)) {
-	    throw new NullAppKeyException();
-	} else if (appKey.isEmpty()) {
-	    throw new EmptyAppKeyException();
-	}
-    }
+  }
 }

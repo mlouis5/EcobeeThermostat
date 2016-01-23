@@ -9,7 +9,7 @@ package com.design.perpetual.ecobeethermostat.app.exceptions;
  *
  * @author MacDerson
  */
-public class NullAppKeyException extends Exception {
+public class NullAppKeyException extends RuntimeException {
     
     public NullAppKeyException(){
 	super("AppKey is null");

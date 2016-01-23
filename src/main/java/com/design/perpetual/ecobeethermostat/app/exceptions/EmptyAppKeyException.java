@@ -5,11 +5,13 @@
  */
 package com.design.perpetual.ecobeethermostat.app.exceptions;
 
+import com.design.perpetual.ecobeethermostat.app.components.Runtime;
+
 /**
  *
  * @author MacDerson
  */
-public class EmptyAppKeyException extends Exception {
+public class EmptyAppKeyException extends RuntimeException {
     
     public EmptyAppKeyException(){
 	super("AppKey is empty");
