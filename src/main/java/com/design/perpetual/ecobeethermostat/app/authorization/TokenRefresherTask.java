@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TimerTask;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -47,7 +46,7 @@ public class TokenRefresherTask extends TimerTask implements TokenObservable {
 		Logger.getLogger(TokenRefresherTask.class.getName()).
 		log(Level.SEVERE, null, err.toString());
 	    }else{	    
-		notifyObservers((Token) mapping.get(Token.class));
+		notifyObservers((Tokens) mapping.get(Tokens.class));
 	    }
 	} catch (InterruptedException | ExecutionException ex) {
 	    Logger.getLogger(TokenRefresherTask.class.getName()).
@@ -63,10 +62,10 @@ public class TokenRefresherTask extends TimerTask implements TokenObservable {
     }
 
     @Override
-    public void notifyObservers(Token token) {
-	if (Objects.nonNull(token)) {
+    public void notifyObservers(Tokens tokens) {
+	if (Objects.nonNull(tokens)) {
 	    observers.parallelStream().forEach(o -> {
-		o.tokenRefreshed(token);
+		o.tokenRefreshed(tokens);
 	    });
 	}
     }

@@ -5,7 +5,7 @@
  */
 package com.design.perpetual.ecobeethermostat.app.observers;
 
-import com.design.perpetual.ecobeethermostat.app.authorization.Token;
+import com.design.perpetual.ecobeethermostat.app.authorization.Tokens;
 
 /**
  *
@@ -13,5 +13,5 @@ import com.design.perpetual.ecobeethermostat.app.authorization.Token;
  */
 public interface TokenObserver {
 
-    void tokenRefreshed(Token token);
+    void tokenRefreshed(Tokens tokens);
 }
