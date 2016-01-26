@@ -5,8 +5,6 @@
  */
 package com.design.perpetual.ecobeethermostat.app.exceptions;
 
-import com.design.perpetual.ecobeethermostat.app.components.Runtime;
-
 /**
  *
  * @author MacDerson
