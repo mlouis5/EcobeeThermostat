@@ -6,17 +6,24 @@
 package com.design.perpetual.ecobeethermostat.app.components.domain;
 
 import com.design.perpetual.ecobeethermostat.app.annotations.TypeInformation;
+import com.design.perpetual.ecobeethermostat.app.components.abstracts.AbstractResource;
 
 /**
  *
  * @author Mac
  */
 @TypeInformation(typeLink = "")
-public class Weather {
+public class Weather  extends AbstractResource<Weather> {
+
+    private static final String URI = "/weather";
 
     private String timestamp;
     private String weatherStation;
     private WeatherForecast[] forecasts;
+
+    public Weather() {
+        super(URI);
+    }
 
     public String getTimestamp() {
         return timestamp;

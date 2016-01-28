@@ -7,7 +7,9 @@ package com.design.perpetual.ecobeethermostat.app.components.domain;
 
 import com.design.perpetual.ecobeethermostat.app.annotations.TypeInformation;
 import com.design.perpetual.ecobeethermostat.app.components.Resource;
+import com.design.perpetual.ecobeethermostat.app.components.abstracts.AbstractResource;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.lang.*;
 
@@ -17,7 +19,9 @@ import java.lang.*;
  */
 @TypeInformation(typeLink = "")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Thermostat implements Resource<Thermostat>{
+public class Thermostat extends AbstractResource<Thermostat>{
+
+    private static final String URI = "/thermostat";
 
     private String identifier;
     private String name;
@@ -46,6 +50,10 @@ public class Thermostat implements Resource<Thermostat>{
     private Version version;
     private SecuritySettings securitySettings;
     private RemoteSensor[] remoteSensors;
+
+    public Thermostat() {
+        super(URI);
+    }
 
     public String getIdentifier() {
         return identifier;
@@ -263,13 +271,4 @@ public class Thermostat implements Resource<Thermostat>{
         this.remoteSensors = remoteSensors;
     }
 
-    @Override
-    public String getBase() {
-        return null;
-    }
-
-    @Override
-    public String getUri() {
-        return null;
-    }
 }

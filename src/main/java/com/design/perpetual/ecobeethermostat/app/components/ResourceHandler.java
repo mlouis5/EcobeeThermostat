@@ -10,9 +10,9 @@ import java.util.Optional;
  */
 public interface ResourceHandler<R> {
 
-  Optional<R> get(R t);
+  Optional<R> get();
 
-  Optional<R> post(R t);
+  Optional<R> post();
 
-  Optional<R> exchange(HttpMethod method, R t, HttpEntity<String> headers);
+  Optional<R> exchange(HttpMethod method, HttpEntity<String> headers);
 }
